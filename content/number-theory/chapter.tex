@@ -62,3 +62,23 @@
   $ g(n) = \sum_{n|d} f(d) \Leftrightarrow f(n) = \sum_{n|d} \mu(d/n)g(d)$
 
  $ g(n) = \sum_{1 \leq m \leq n} f(\left\lfloor\frac{n}{m}\right \rfloor ) \Leftrightarrow f(n) = \sum_{1\leq m\leq n} \mu(m)g(\left\lfloor\frac{n}{m}\right\rfloor)$
+
+\section{Dirichlet convolution}
+	$(f * g)(n) = \sum_{d | n} f(d) g(n/d)$. It is associative and commutative,
+	and the convolution of multiplicative functions is multiplicative.
+	With $\varepsilon = [n=1]$, $1(n) = 1$, $\mathrm{id}_k(n) = n^k$:
+	\[ \mu * 1 = \varepsilon, \: \varphi * 1 = \mathrm{id}, \:
+	   1 * 1 = d, \: \mathrm{id} * 1 = \sigma, \:
+	   (\mathrm{id}_k f) * (\mathrm{id}_k g) = \mathrm{id}_k (f * g) \]
+
+	Prefix sums: $\sum_{i \le n} (f*g)(i) = \sum_{d \le n} g(d)\, S_f(\lfloor n/d \rfloor)$, so
+	\[ g(1) S_f(n) = S_{f*g}(n) - \sum_{d=2}^{n} g(d)\, S_f(\lfloor n/d \rfloor). \]
+	Choose $g$ so that $S_g$ and $S_{f*g}$ are cheap:
+
+	\begin{tabular}{l|l|l}
+	$f$ & $g$ & $f * g$ \\ \hline
+	$\mu$ & $1$ & $\varepsilon$ \\
+	$\varphi$ & $1$ & $\mathrm{id}$ \\
+	$\mathrm{id} \cdot \varphi$ & $\mathrm{id}$ & $\mathrm{id}_2$ \\
+	$\mathrm{id} \cdot \mu$ & $\mathrm{id}$ & $\varepsilon$ \\
+	\end{tabular}
