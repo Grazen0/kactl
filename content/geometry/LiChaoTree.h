@@ -16,10 +16,10 @@ struct Line {
 
 constexpr int MIN_RANGE = -1e5;
 constexpr int MAX_RANGE = 1e5;
-Line ln[4 * (MAX_RANGE - MIN_RANGE)];
+Line ln[4 * (MAX_RANGE - MIN_RANGE + 1)];
 
 void insert(Line L, int cur = 0, int l = MIN_RANGE, int r = MAX_RANGE + 1) {
-    int m = midpoint(l, r);
+    int m = l + (r - l) / 2;
     if (r - l == 1) { if (ln[cur](l) < L(l)) ln[cur] = L; return; }
 
     if (ln[cur](m) < L(m)) swap(ln[cur], L);
@@ -28,7 +28,7 @@ void insert(Line L, int cur = 0, int l = MIN_RANGE, int r = MAX_RANGE + 1) {
 }
 
 int query(int x, int cur = 0, int l = MIN_RANGE, int r = MAX_RANGE + 1) {
-    int m = midpoint(l, r);
+    int m = l + (r - l) / 2;
     if (r - l == 1) return ln[cur](x);
     if (l <= x and x < m) return max(ln[cur](x), query(x, 2 * cur + 1, l, m));
     else                  return max(ln[cur](x), query(x, 2 * cur + 2, m, r));
